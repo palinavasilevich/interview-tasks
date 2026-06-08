@@ -1,11 +1,28 @@
 function throttle(fn, delay) {
-  let lastCall = 0;
+  let lastCall = -Infinity;
+  let timer = null;
+  let pendingThis = null;
+  let pendingArgs = null;
 
   return function (...args) {
     const now = Date.now();
+
     if (now - lastCall >= delay) {
       lastCall = now;
       fn.apply(this, args);
+    } else {
+      pendingThis = this;
+      pendingArgs = args;
+
+      if (!timer) {
+        timer = setTimeout(() => {
+          lastCall = Date.now();
+          fn.apply(pendingThis, pendingArgs);
+          timer = null;
+          pendingThis = null;
+          pendingArgs = null;
+        }, lastCall + delay - now);
+      }
     }
   };
 }
