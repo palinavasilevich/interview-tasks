@@ -1,9 +1,9 @@
 function groupBy(items, callback) {
   const resultMap = new Map();
+  let i = 0;
 
-  for (let i = 0; i < items.length; i++) {
-    const currentItem = items[i];
-    const key = callback(currentItem, i);
+  for (const currentItem of items) {
+    const key = callback(currentItem, i++);
 
     if (resultMap.has(key)) {
       resultMap.get(key).push(currentItem);
