@@ -1,0 +1,31 @@
+export function promiseAll(promises) {
+  const arr = Array.from(promises);
+
+  if (arr.length === 0) return Promise.resolve([]);
+
+  const results = new Array(arr.length);
+  let remaining = arr.length;
+
+  return new Promise((resolve, reject) => {
+    arr.forEach((promise, i) => {
+      Promise.resolve(promise).then((result) => {
+        results[i] = result;
+        remaining -= 1;
+        if (remaining === 0) resolve(results);
+      }, reject);
+    });
+  });
+}
+
+const rand = () => Math.random() * 2000;
+
+const p1 = new Promise((r) => setTimeout(r, rand(), "A"));
+const p2 = new Promise((r) => setTimeout(r, rand(), "B"));
+// const p2 = new Promise((_, reject) => reject(new Error("Error!")));
+const p3 = new Promise((r) => setTimeout(r, rand(), "C"));
+const p4 = new Promise((r) => setTimeout(r, rand(), "D"));
+
+promiseAll([p1, p2, p3, p4]).then(
+  (value) => console.log("1 >>>", value),
+  (reason) => console.log("2 >>>", reason),
+);
