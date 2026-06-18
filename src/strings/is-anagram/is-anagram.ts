@@ -1,12 +1,15 @@
 export function isAnagram(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
+  const s1 = a.toLowerCase();
+  const s2 = b.toLowerCase();
 
-  const mapA = new Map();
-  const mapB = new Map();
+  if (s1.length !== s2.length) return false;
 
-  for (let i = 0; i < a.length; i++) {
-    mapA.set(a[i], (mapA.get(a[i]) || 0) + 1);
-    mapB.set(b[i], (mapB.get(b[i]) || 0) + 1);
+  const mapA = new Map<string, number>();
+  const mapB = new Map<string, number>();
+
+  for (let i = 0; i < s1.length; i++) {
+    mapA.set(s1[i], (mapA.get(s1[i]) ?? 0) + 1);
+    mapB.set(s2[i], (mapB.get(s2[i]) ?? 0) + 1);
   }
 
   for (const [letter, count] of mapA.entries()) {
@@ -14,4 +17,16 @@ export function isAnagram(a: string, b: string): boolean {
   }
 
   return true;
+}
+
+export function isAnagramV2(str1: string, str2: string): boolean {
+  const normalize = (str: string) =>
+    str
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")
+      .split("")
+      .sort()
+      .join("");
+
+  return normalize(str1) === normalize(str2);
 }
