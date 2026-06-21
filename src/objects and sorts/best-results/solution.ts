@@ -4,10 +4,12 @@ type Attempt = {
   date: string;
 };
 
-function parseDate(date: string): number {
-  const [day, month, year] = date.split(".");
-  return Date.parse(`${year}-${month}-${day}`);
-}
+// function parseDate(date: string): number {
+//   const [day, month, year] = date.split(".");
+//   return Date.parse(`${year}-${month}-${day}`);
+// }
+
+const toSortableDate = (date: string) => date.split(".").reverse().join("");
 
 function bestResults(attempts: Attempt[]): Attempt[] {
   const attemptsMap = new Map<string, Attempt>();
@@ -23,7 +25,7 @@ function bestResults(attempts: Attempt[]): Attempt[] {
       if (attempt.score > current.score) {
         attemptsMap.set(key, attempt);
       } else if (attempt.score === current.score) {
-        if (parseDate(attempt.date) < parseDate(current.date)) {
+        if (toSortableDate(attempt.date) < toSortableDate(current.date)) {
           attemptsMap.set(key, attempt);
         }
       }
@@ -41,7 +43,7 @@ function bestResultsV2(attempts: Attempt[]): Attempt[] {
       !current ||
       attempt.score > current.score ||
       (attempt.score === current.score &&
-        parseDate(attempt.date) < parseDate(current.date))
+        toSortableDate(attempt.date) < toSortableDate(current.date))
     ) {
       acc[attempt.name] = attempt;
     }
