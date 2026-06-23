@@ -15,13 +15,16 @@ function throttle(fn, delay) {
       pendingArgs = args;
 
       if (!timer) {
-        timer = setTimeout(() => {
-          lastCall = Date.now();
-          fn.apply(pendingThis, pendingArgs);
-          timer = null;
-          pendingThis = null;
-          pendingArgs = null;
-        }, lastCall + delay - now);
+        timer = setTimeout(
+          () => {
+            lastCall = Date.now();
+            fn.apply(pendingThis, pendingArgs);
+            timer = null;
+            pendingThis = null;
+            pendingArgs = null;
+          },
+          lastCall + delay - now,
+        );
       }
     }
   };
@@ -39,6 +42,21 @@ function throttleV2(fn, delay) {
       } finally {
         timer = null;
       }
+    }, delay);
+  };
+}
+
+function throttleV3(fn, delay) {
+  let isThrottled = false;
+
+  return function (...args) {
+    if (isThrottled) return;
+
+    fn.apply(this, args);
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
     }, delay);
   };
 }
