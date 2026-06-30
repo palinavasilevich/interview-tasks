@@ -1,5 +1,5 @@
 Function.prototype.call2 = function (context, ...args) {
-  context = context ?? globalThis;
+  context = Object(context ?? globalThis);
 
   const fnKey = Symbol("fn");
   context[fnKey] = this;
