@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "new": "node create-task.js",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui"
