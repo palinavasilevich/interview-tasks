@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const taskPath = process.argv[2];
 
 if (!taskPath) {
-  console.error("Usage: node create-task.js <category/task-name>");
+  console.error("Usage: npm run new -- arrays/remove-key");
   process.exit(1);
 }
 
-const root = process.cwd();
-const dir = path.join(root, taskPath);
+const dir = path.join(process.cwd(), "src", taskPath);
 
 fs.mkdirSync(dir, { recursive: true });
 
@@ -35,7 +34,7 @@ TODO
 
 ## Requirements
 
-- 
+-
 
 ---
 
@@ -49,18 +48,19 @@ TODO
 
 ## Complexity
 
-- **Time:** O(...)
-- **Space:** O(...)
+- Time:
+- Space:
 `,
 };
 
 for (const [name, content] of Object.entries(files)) {
-  const file = path.join(dir, name);
+  const filePath = path.join(dir, name);
 
-  if (!fs.existsSync(file)) {
-    fs.writeFileSync(file, content);
-    console.log(`✓ Created ${file}`);
-  } else {
-    console.log(`⚠ ${file} already exists`);
+  if (fs.existsSync(filePath)) {
+    console.log(`⚠ ${filePath} already exists`);
+    continue;
   }
+
+  fs.writeFileSync(filePath, content, "utf8");
+  console.log(`✓ Created ${filePath}`);
 }
