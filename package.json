@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "new": "node create-task.js",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:ui": "vitest --ui"
+    "new": "node scripts/new-task.js",
+    "task": "node scripts/run-task.js",
+    "watch": "node scripts/watch-task.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.4.0",
     "globals": "^17.6.0",
-    "vitest": "^2.0.0"
+    "vitest": "^2.1.9"
   }
 }
