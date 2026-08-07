@@ -18,9 +18,7 @@ try {
     shell: true,
   });
 
-  child.on("exit", (code) => {
-    process.exit(code ?? 0);
-  });
+  child.on("exit", (code) => process.exit(code ?? 0));
 } catch (error) {
   console.error(`❌ ${error.message}`);
   process.exit(1);

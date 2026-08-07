@@ -18,9 +18,9 @@ export function findTaskDirectory(taskPath) {
 export function findTestFile(taskPath) {
   const dir = findTaskDirectory(taskPath);
 
-  const testFiles = fs.readdirSync(dir).filter((file) => {
-    return file.endsWith(".test.ts") || file.endsWith(".test.js");
-  });
+  const testFiles = fs
+    .readdirSync(dir)
+    .filter((file) => /\.test\.(ts|js)$/.test(file));
 
   if (testFiles.length === 0) {
     throw new Error(`No test file found in:\n${dir}`);
