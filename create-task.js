@@ -1,21 +1,29 @@
-#!/usr/bin/env node
-
 import fs from "node:fs";
 import path from "node:path";
 
 const taskPath = process.argv[2];
 
 if (!taskPath) {
-  console.error("Usage: npm run new -- arrays/remove-key");
+  console.error("Usage: npm run new <task-path> [--js | --ts]");
   process.exit(1);
 }
+
+const hasJsFlag = process.argv.includes("--js");
+const hasTsFlag = process.argv.includes("--ts");
+
+if (hasJsFlag && hasTsFlag) {
+  console.error("Please specify only one extension: --js or --ts");
+  process.exit(1);
+}
+
+const extension = hasTsFlag ? "ts" : "js";
 
 const dir = path.join(process.cwd(), "src", taskPath);
 
 fs.mkdirSync(dir, { recursive: true });
 
 const files = {
-  "solution.js": `// Solution\n`,
+  [`solution.${extension}`]: `// Solution\n`,
   "task.md": `# ${path.basename(taskPath)}
 
 ## Description
@@ -26,7 +34,7 @@ TODO
 
 ## Example
 
-\`\`\`javascript
+\`\`\`${extension}
 
 \`\`\`
 
@@ -40,7 +48,7 @@ TODO
 
 ## Possible Solution
 
-\`\`\`javascript
+\`\`\`${extension}
 
 \`\`\`
 
