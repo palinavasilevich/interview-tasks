@@ -46,6 +46,14 @@ describe("${taskName}", () => {
   it("should be implemented", () => {
     expect(() => ${functionName}()).toThrow("Not implemented");
   });
+
+  it("Test #1", () => {
+    expect(${functionName}()).toBe();
+  });
+
+  it("Test #2", () => {
+    expect(${functionName}()).toBe();
+  });
 });
 `;
 
