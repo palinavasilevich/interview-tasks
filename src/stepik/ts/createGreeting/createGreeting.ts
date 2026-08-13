@@ -1,3 +1,8 @@
+/*
+Task 3 - Objects with Optional Fields
+Create a function that creates a greeting for the user
+*/
+
 interface User {
   firstName: string;
   lastName?: string;

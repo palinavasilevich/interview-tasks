@@ -1,3 +1,8 @@
+/*
+Task 4 — Object Arrays
+Create a function that finds a user by ID
+*/
+
 interface User {
   id: number;
   name: string;
