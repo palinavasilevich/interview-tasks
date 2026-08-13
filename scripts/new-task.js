@@ -4,7 +4,7 @@ import path from "node:path";
 const taskPath = process.argv[2];
 
 if (!taskPath) {
-  console.error("Usage: npm run new <task-path> [--ts] [--test]");
+  console.error("Usage: npm run new <task-path> [--ts] [--test] [--task]");
   process.exit(1);
 }
 
@@ -12,6 +12,7 @@ const args = new Set(process.argv.slice(3));
 
 const extension = args.has("--ts") ? "ts" : "js";
 const createTest = args.has("--test");
+const createTaskInfo = args.has("--task");
 
 const dir = path.join(process.cwd(), "src", taskPath);
 
@@ -103,8 +104,11 @@ const taskTemplate = `# ${taskName}
 
 const files = {
   [`${functionName}.${extension}`]: solutionTemplate,
-  "task.md": taskTemplate,
 };
+
+if (createTaskInfo) {
+  files["task.md"] = taskTemplate;
+}
 
 if (createTest) {
   files[`${functionName}.test.${extension}`] = testTemplate;
@@ -114,10 +118,10 @@ for (const [name, content] of Object.entries(files)) {
   const filePath = path.join(dir, name);
 
   if (fs.existsSync(filePath)) {
-    console.log(`⚠ ${filePath} already exists`);
+    console.log(`⚠️ ${filePath} already exists`);
     continue;
   }
 
   fs.writeFileSync(filePath, content, "utf8");
-  console.log(`✓ Created ${filePath}`);
+  console.log(`✅ Created ${filePath}`);
 }
