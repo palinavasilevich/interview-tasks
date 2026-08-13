@@ -3,7 +3,7 @@ Task 10 — Functions with Optional Parameters
 Create a function that logs a message with an optional level.
 */
 
-export function logMessage(message: string, level?: string): void {
+export function logMessage(message: string, level?: "ERROR" | "WARN"): void {
   const timestamp = new Date().toISOString();
 
   if (level) {
