@@ -43,10 +43,6 @@ const testTemplate = `import { describe, expect, it } from "vitest";
 import { ${functionName} } from "./${functionName}";
 
 describe("${taskName}", () => {
-  it("should be implemented", () => {
-    expect(() => ${functionName}()).toThrow("Not implemented");
-  });
-
   it("Test #1", () => {
     expect(${functionName}()).toBe();
   });
