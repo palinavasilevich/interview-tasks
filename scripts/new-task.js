@@ -103,7 +103,7 @@ const taskTemplate = `# ${taskName}
 `;
 
 const files = {
-  [`${functionName}.${extension}`]: solutionTemplate,
+  [`${taskName}.${extension}`]: solutionTemplate,
 };
 
 if (createTaskInfo) {
@@ -111,7 +111,7 @@ if (createTaskInfo) {
 }
 
 if (createTest) {
-  files[`${functionName}.test.${extension}`] = testTemplate;
+  files[`${taskName}.test.${extension}`] = testTemplate;
 }
 
 for (const [name, content] of Object.entries(files)) {
